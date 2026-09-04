@@ -28,6 +28,7 @@ export default function AdminPanel() {
 
   return (
     <div className="card wide">
+      <p className="kicker">04 / Control — User registry</p>
       <h2>Admin Panel (Phase 3 — no access control)</h2>
       <p className="hint">Viewing as: {currentUser ? `${currentUser.username} (${currentUser.role})` : 'guest'}</p>
       <table>

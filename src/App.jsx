@@ -23,12 +23,15 @@ export default function App() {
 
   return (
     <div className="app">
-      <header>
-        <h1>SecureLogin <span className="badge">Phase 3 — VULNERABLE</span></h1>
+      <header className="masthead">
+        <div className="brand">
+          <p className="kicker">Auth system / RBAC demo</p>
+          <h1>SecureLogin <span className="stamp">Phase 3 — Vulnerable</span></h1>
+        </div>
         <nav>
           {currentUser ? (
             <>
-              <span>{currentUser.username}</span>{' '}
+              <span className="whoami">[{currentUser.username}]</span>{' '}
               <Link to="/dashboard">Dashboard</Link>{' '}
               <Link to="/admin">Admin</Link>{' '}
               <button onClick={onLogout}>Logout</button>
@@ -57,7 +60,7 @@ export default function App() {
           />
         </Routes>
       </main>
-      <footer>
+      <footer className="specstrip">
         <p>ITC C303 — Lopez / Rivera / Santos — Phase 3 intentionally insecure: plaintext passwords, no validation.</p>
       </footer>
     </div>

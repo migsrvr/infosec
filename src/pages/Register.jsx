@@ -19,11 +19,18 @@ export default function Register() {
 
   return (
     <div className="card">
+      <p className="kicker">02 / Enroll</p>
       <h2>Register (Phase 3 — insecure)</h2>
       <form onSubmit={onSubmit}>
-        <input placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-        <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <label className="field">Username
+          <input placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+        </label>
+        <label className="field">Email
+          <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        </label>
+        <label className="field">Password
+          <input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        </label>
         <button type="submit">Create account</button>
       </form>
       <p><Link to="/login">Already have an account? Login</Link></p>
