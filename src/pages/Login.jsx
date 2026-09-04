@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
+import { resetDemoData } from '../lib/store.js'
 
 export default function Login() {
   const { login } = useAuth()
@@ -37,6 +38,10 @@ export default function Login() {
       </form>
       <p><Link to="/register">No account? Register</Link></p>
       <p className="hint">Seeded admin: admin / admin123</p>
+      <p>
+        <button type="button" onClick={() => { resetDemoData(); window.location.reload() }}>Reset demo data</button>
+      </p>
+      <p className="hint">Switching from phase5? Reset first — both branches share browser storage.</p>
     </div>
   )
 }

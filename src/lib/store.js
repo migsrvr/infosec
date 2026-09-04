@@ -34,6 +34,15 @@ export function clearSession() {
   localStorage.removeItem(SESSION_KEY)
 }
 
+// Demo helper: both branches share browser storage, so switching from
+// phase5 leaves a bcrypt-hashed admin that phase3 cannot read.
+// Reset restores the plaintext seed. (Intentionally unprotected — phase3 flaw.)
+export function resetDemoData() {
+  localStorage.removeItem(USERS_KEY)
+  localStorage.removeItem(SESSION_KEY)
+  seedIfEmpty()
+}
+
 // Seed a default admin (plaintext!) so the admin panel can be demoed.
 export function seedIfEmpty() {
   const users = getUsers()
