@@ -22,12 +22,19 @@ export default function Register() {
 
   return (
     <div className="card">
+      <p className="kicker">02 / Enroll</p>
       <h2>Register (Phase 5 — secured)</h2>
       {error && <p className="error">{error}</p>}
       <form onSubmit={onSubmit}>
-        <input placeholder="Username (3-20 chars)" value={username} onChange={(e) => setUsername(e.target.value)} maxLength={20} />
-        <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} maxLength={100} />
-        <input placeholder="Password (8+ chars, Aa + 0-9)" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <label className="field">Username
+          <input placeholder="Username (3-20 chars)" value={username} onChange={(e) => setUsername(e.target.value)} maxLength={20} />
+        </label>
+        <label className="field">Email
+          <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} maxLength={100} />
+        </label>
+        <label className="field">Password
+          <input placeholder="Password (8+ chars, Aa + 0-9)" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        </label>
         <button type="submit">Create account</button>
       </form>
       <p><Link to="/login">Already have an account? Login</Link></p>

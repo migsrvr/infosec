@@ -13,6 +13,7 @@ export default function AdminPanel() {
   if (!currentUser || currentUser.role !== 'admin') {
     return (
       <div className="card">
+        <p className="kicker">04 / Control</p>
         <h2>Admin Panel</h2>
         <p className="error">Access denied. Admins only.</p>
         <p><Link to="/dashboard">Back to Dashboard</Link></p>
@@ -56,6 +57,7 @@ export default function AdminPanel() {
 
   return (
     <div className="card wide">
+      <p className="kicker">04 / Control — User registry</p>
       <h2>Admin Panel (Phase 5 — access controlled)</h2>
       <p className="hint">Viewing as: {currentUser.username} (admin). Passwords are hashes — never displayed.</p>
       <table>
@@ -79,6 +81,7 @@ export default function AdminPanel() {
         </tbody>
       </table>
 
+      <p className="kicker">05 / Ledger — Audit log</p>
       <h3>Audit log (repudiation control)</h3>
       <table>
         <thead>

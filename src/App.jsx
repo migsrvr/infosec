@@ -31,12 +31,15 @@ export default function App() {
 
   return (
     <div className="app">
-      <header>
-        <h1>SecureLogin <span className="badge secure">Phase 5 — SECURE</span></h1>
+      <header className="masthead">
+        <div className="brand">
+          <p className="kicker">Auth system / RBAC demo</p>
+          <h1>SecureLogin <span className="stamp">Phase 5 — Secure</span></h1>
+        </div>
         <nav>
           {currentUser ? (
             <>
-              <span>{currentUser.username}</span>{' '}
+              <span className="whoami">[{currentUser.username}]</span>{' '}
               <Link to="/dashboard">Dashboard</Link>{' '}
               {currentUser.role === 'admin' && <Link to="/admin">Admin</Link>}{' '}
               <button onClick={onLogout}>Logout</button>
@@ -64,7 +67,7 @@ export default function App() {
           />
         </Routes>
       </main>
-      <footer>
+      <footer className="specstrip">
         <p>ITC C303 — Lopez / Rivera / Santos — Phase 5: bcrypt hashing, validation, lockout, expiring tokens, audit log.</p>
       </footer>
     </div>

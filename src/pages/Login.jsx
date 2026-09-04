@@ -21,11 +21,16 @@ export default function Login() {
 
   return (
     <div className="card">
+      <p className="kicker">01 / Access</p>
       <h2>Login (Phase 5 — secured)</h2>
       {error && <p className="error">{error}</p>}
       <form onSubmit={onSubmit}>
-        <input placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-        <input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <label className="field">Username
+          <input placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+        </label>
+        <label className="field">Password
+          <input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        </label>
         <button type="submit">Login</button>
       </form>
       <p><Link to="/register">No account? Register</Link></p>
