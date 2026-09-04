@@ -12,9 +12,11 @@ export default function Dashboard() {
           <p>Welcome, <b>{currentUser.username}</b>!</p>
           <p>Email: {currentUser.email}</p>
           <p>Role: {currentUser.role}</p>
-          <p className="hint">Your password (stored insecurely): {currentUser.password}</p>
+          <p className="success">Session secured: random token + 30-min expiry. No password shown (fixed).</p>
           <button onClick={logout}>Logout</button>
-          <p><Link to="/admin">Go to Admin Panel</Link> (VULNERABLE: link visible to all)</p>
+          {currentUser.role === 'admin' && (
+            <p><Link to="/admin">Go to Admin Panel</Link></p>
+          )}
         </>
       ) : (
         <p>Not logged in. <Link to="/login">Login</Link></p>

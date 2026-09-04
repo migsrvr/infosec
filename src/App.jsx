@@ -5,10 +5,18 @@ import Register from './pages/Register.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 import AdminPanel from './pages/AdminPanel.jsx'
 
-// VULNERABLE: ProtectedRoute only checks "logged in", never role/expiry/token.
+// SECURE: login required for protected pages.
 function ProtectedRoute({ children }) {
   const { currentUser } = useAuth()
   if (!currentUser) return <Navigate to="/login" replace />
+  return children
+}
+
+// SECURE: admin role enforced at the router AND inside AdminPanel (defense in depth).
+function AdminRoute({ children }) {
+  const { currentUser } = useAuth()
+  if (!currentUser) return <Navigate to="/login" replace />
+  if (currentUser.role !== 'admin') return <Navigate to="/dashboard" replace />
   return children
 }
 
@@ -24,13 +32,13 @@ export default function App() {
   return (
     <div className="app">
       <header>
-        <h1>SecureLogin <span className="badge">Phase 3 — VULNERABLE</span></h1>
+        <h1>SecureLogin <span className="badge secure">Phase 5 — SECURE</span></h1>
         <nav>
           {currentUser ? (
             <>
               <span>{currentUser.username}</span>{' '}
               <Link to="/dashboard">Dashboard</Link>{' '}
-              <Link to="/admin">Admin</Link>{' '}
+              {currentUser.role === 'admin' && <Link to="/admin">Admin</Link>}{' '}
               <button onClick={onLogout}>Logout</button>
             </>
           ) : (
@@ -50,15 +58,14 @@ export default function App() {
             path="/dashboard"
             element={<ProtectedRoute><Dashboard /></ProtectedRoute>}
           />
-          {/* VULNERABLE: /admin uses same weak guard — no admin check */}
           <Route
             path="/admin"
-            element={<ProtectedRoute><AdminPanel /></ProtectedRoute>}
+            element={<AdminRoute><AdminPanel /></AdminRoute>}
           />
         </Routes>
       </main>
       <footer>
-        <p>ITC C303 — Lopez / Rivera / Santos — Phase 3 intentionally insecure: plaintext passwords, no validation.</p>
+        <p>ITC C303 — Lopez / Rivera / Santos — Phase 5: bcrypt hashing, validation, lockout, expiring tokens, audit log.</p>
       </footer>
     </div>
   )

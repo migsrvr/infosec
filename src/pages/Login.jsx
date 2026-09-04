@@ -11,19 +11,17 @@ export default function Login() {
 
   function onSubmit(e) {
     e.preventDefault()
-    // VULNERABLE: unlimited attempts, no lockout, no delay
     const res = login(username, password)
     if (!res.ok) {
       setError(res.error)
       return
     }
-    if (res.user.role === 'admin') nav('/admin')
-    else nav('/dashboard')
+    nav(res.user.role === 'admin' ? '/admin' : '/dashboard')
   }
 
   return (
     <div className="card">
-      <h2>Login (Phase 3 — insecure)</h2>
+      <h2>Login (Phase 5 — secured)</h2>
       {error && <p className="error">{error}</p>}
       <form onSubmit={onSubmit}>
         <input placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
@@ -31,7 +29,7 @@ export default function Login() {
         <button type="submit">Login</button>
       </form>
       <p><Link to="/register">No account? Register</Link></p>
-      <p className="hint">Seeded admin: admin / admin123</p>
+      <p className="hint">Seeded admin: admin / admin123 (hash in storage). 5 wrong tries = 60s lockout.</p>
     </div>
   )
 }

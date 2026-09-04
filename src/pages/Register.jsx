@@ -8,25 +8,30 @@ export default function Register() {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
 
   function onSubmit(e) {
     e.preventDefault()
-    // VULNERABLE: no validation at all — empty, weak, duplicate all allowed
-    const u = register(username, email, password)
-    if (u.role === 'admin') nav('/admin')
-    else nav('/dashboard')
+    const res = register(username, email, password)
+    if (!res.ok) {
+      setError(res.error)
+      return
+    }
+    nav(res.user.role === 'admin' ? '/admin' : '/dashboard')
   }
 
   return (
     <div className="card">
-      <h2>Register (Phase 3 — insecure)</h2>
+      <h2>Register (Phase 5 — secured)</h2>
+      {error && <p className="error">{error}</p>}
       <form onSubmit={onSubmit}>
-        <input placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-        <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input placeholder="Username (3-20 chars)" value={username} onChange={(e) => setUsername(e.target.value)} maxLength={20} />
+        <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} maxLength={100} />
+        <input placeholder="Password (8+ chars, Aa + 0-9)" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         <button type="submit">Create account</button>
       </form>
       <p><Link to="/login">Already have an account? Login</Link></p>
+      <p className="hint">Stored as bcrypt hash — check Local Storage, no plaintext.</p>
     </div>
   )
 }
